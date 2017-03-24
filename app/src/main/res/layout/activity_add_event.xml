@@ -6,85 +6,94 @@
     android:orientation="vertical"
     tools:context="com.hrcompany.kanbanboard.AddEventActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <EditText
-            android:id="@+id/event_title_EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginStart="25dp"
-            android:ems="10"
-            android:hint="@string/event_title_text"
-            android:inputType="textCapWords" />
-
-        <EditText
-            android:id="@+id/event_description_EditText"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginStart="25dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/event_description_text"
-            android:inputType="textMultiLine" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:clickable="true"
-            android:onClick="selectEventDate">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_my_calendar"
-                android:layout_gravity="center"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/event_date_text"
-                android:layout_gravity="center"/>
-
-        </LinearLayout>
-        <TextView
-            android:id="@+id/event_date_TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/event_title_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
+                android:hint="@string/event_title_text"
+                android:inputType="textCapWords" />
+            <EditText
+                android:id="@+id/event_description_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp"
+                android:hint="@string/event_description_text"
+                android:inputType="textMultiLine" />
+            <!--
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:clickable="true"
+                android:onClick="selectEventDate">
 
-    <LinearLayout
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_my_calendar"
+                    android:layout_gravity="center" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/event_date_text"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/event_date_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:textSize="20sp"/>
+            -->
+        </LinearLayout>
+
+    </ScrollView>
+
+    <android.support.design.widget.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
 
-        <Button
-            android:layout_gravity="bottom"
-            android:id="@+id/btn_cancel_event"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel_text"
-            android:onClick="cancelButtonFunction"/>
-        <Button
-            android:layout_gravity="bottom"
-            android:id="@+id/btn_add_event"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_add_event_text"
-            android:onClick="addEvent"/>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
+            <Button
+                android:layout_gravity="bottom"
+                android:id="@+id/btn_cancel_event"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel_text"
+                android:onClick="cancelButtonFunction"/>
+            <Button
+                android:layout_gravity="bottom"
+                android:id="@+id/btn_add_event"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_add_event_text"
+                android:onClick="addEvent"/>
+
+        </LinearLayout>
+
+    </android.support.design.widget.BottomNavigationView>
 
 </LinearLayout>

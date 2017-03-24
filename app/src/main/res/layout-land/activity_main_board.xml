@@ -24,13 +24,14 @@
         class="com.hrcompany.kanbanboard.DoingFragment">
 
     </fragment>
+
     <fragment
         android:id="@+id/done_fragment"
-        android:layout_weight="1"
+        class="com.hrcompany.kanbanboard.DoneFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        tools:layout="@layout/done_layout"
-        class="com.hrcompany.kanbanboard.DoneFragment">
+        android:layout_weight="1"
+        tools:layout="@layout/done_layout">
 
     </fragment>
 

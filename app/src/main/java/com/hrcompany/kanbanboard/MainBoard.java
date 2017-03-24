@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.io.File;
@@ -24,8 +25,8 @@ public class MainBoard extends FragmentActivity {
     private ListView listViewToDo;
     private TabHost tabHost;
 
-    private Event[] events;
-    private SQLiteDatabase eventsDB = null;
+    private Event[] ToDoevents;
+    private static SQLiteDatabase eventsDB = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,7 @@ public class MainBoard extends FragmentActivity {
 
         listViewToDo = (ListView) findViewById(R.id.listViewToDo);
 
-
-        if (Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation) {
+        if (Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation){
             tabHost = (TabHost) findViewById(R.id.tab_host);
             tabHost.setup();
 
@@ -59,9 +59,10 @@ public class MainBoard extends FragmentActivity {
             spec.setIndicator("DONE");
             tabHost.addTab(spec);
         }
-        events = getEvents(1);
 
-        ListAdapter theAdapter = new MyAdapter(this, events);
+        ToDoevents = getEvents(1);
+
+        ListAdapter theAdapter = new MyAdapter(this, ToDoevents);
         listViewToDo.setAdapter(theAdapter);
     }
 
@@ -69,7 +70,12 @@ public class MainBoard extends FragmentActivity {
         try {
             eventsDB = this.openOrCreateDatabase("MyEvents", MODE_PRIVATE, null);
 
-            eventsDB.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY, title VARCHAR, description TEXT, eventDate DATE, state INTEGER DEFAULT 1);");
+            eventsDB.execSQL("CREATE TABLE IF NOT EXISTS events " +
+                    "(id INTEGER PRIMARY KEY, " +
+                    "title VARCHAR, " +
+                    "description TEXT, " +
+                    //"eventDate TEXT, " +
+                    "state INTEGER DEFAULT 1);");
 
             File database = getApplicationContext().getDatabasePath("MyEvents.db");
         }
@@ -78,32 +84,30 @@ public class MainBoard extends FragmentActivity {
         }
     }
 
-    public void addEvent(Event event){
-        eventsDB.execSQL("INSERT INTO events (title, description, eventDate) VALUES ('"+event.getTitle()+"', '"+event.getDescription()+"', '"+event.getEventDate()+"')");
+    public static SQLiteDatabase getDatabase(){
+        return eventsDB;
     }
 
     public Event[] getEvents(int state){
+
         int longeur = 0;
         Cursor cursor = eventsDB.rawQuery("SELECT * FROM events WHERE state="+state, null);
         Event[] events = new Event[cursor.getCount()];
 
-        int idColumn = cursor.getColumnIndex("id");
         int titleColumn = cursor.getColumnIndex("title");
         int descriptionColumn = cursor.getColumnIndex("description");
-        int dateColumn = cursor.getColumnIndex("eventDate");
+        //int dateColumn = cursor.getColumnIndex("eventDate");
 
         cursor.moveToFirst();
 
         if (cursor.getCount() > 0){
             do {
 
-                String id = cursor.getString(idColumn);
                 String title = cursor.getString(titleColumn);
                 String description = cursor.getString(descriptionColumn);
-                String date = cursor.getString(dateColumn);
+                //String date = cursor.getString(dateColumn);
 
-                events[longeur++] = new Event(title, description, Date.valueOf(date), state);
-
+                events[longeur++] = new Event(title);
             } while (cursor.moveToNext());
         }
 
@@ -113,8 +117,8 @@ public class MainBoard extends FragmentActivity {
 
     public void addToDoEvent(View view) {
         Intent intent = new Intent(this, AddEventActivity.class);
-
         startActivity(intent);
-    }
 
+        finish();
+    }
 }

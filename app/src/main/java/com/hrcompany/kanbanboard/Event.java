@@ -21,6 +21,10 @@ public class Event {
         this.state = state;
     }
 
+    public Event(String title){
+        this.title = title;
+    }
+
     public String getTitle() {
         return title;
     }
